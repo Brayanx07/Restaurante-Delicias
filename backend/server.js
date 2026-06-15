@@ -9,7 +9,7 @@ const app  = express()
 const PORT = process.env.PORT || 4000
 
 // Middlewares
-app.use(cors({ origin: /^http:\/\/(localhost|192\.168\.\d+\.\d+):\d+$/ }))
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 
 // Rutas
