@@ -1,14 +1,6 @@
-const nodemailer = require('nodemailer')
+const { Resend } = require('resend')
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  }
-})
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 const enviarConfirmacion = async (reserva) => {
   const urlEditar = `${process.env.FRONTEND_PUBLIC_URL}/editar-reserva/${reserva.id}`
@@ -17,8 +9,8 @@ const enviarConfirmacion = async (reserva) => {
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   })
 
-  await transporter.sendMail({
-    from: `"Restaurante Delicias" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'Restaurante Delicias <onboarding@resend.dev>',
     to: reserva.email,
     subject: '✅ Reserva recibida — Restaurante Delicias',
     html: `
