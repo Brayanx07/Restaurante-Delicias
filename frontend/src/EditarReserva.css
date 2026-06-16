@@ -1,0 +1,127 @@
+.editar-page {
+  min-height: 100vh;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.editar-box {
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.editar-logo {
+  display: block;
+  color: #ffb703;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.editar-box h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.editar-box p {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.editar-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.editar-box input,
+.editar-box textarea {
+  padding: 13px 16px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background-color: #111;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editar-box input:focus,
+.editar-box textarea:focus {
+  border-color: #ffb703;
+}
+
+.editar-box textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.editar-fila {
+  display: flex;
+  gap: 10px;
+}
+
+.editar-fila input {
+  flex: 1;
+}
+
+.editar-box button {
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
+  background-color: #ffb703;
+  color: #111;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.editar-box button:hover {
+  background-color: #ffaa00;
+}
+
+.editar-box button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.editar-exito {
+  color: #4caf50;
+  font-size: 15px;
+  text-align: center;
+}
+
+.editar-error {
+  color: #ff6b6b;
+  font-size: 15px;
+  text-align: center;
+}
+
+.editar-centro {
+  min-height: 100vh;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editar-msg {
+  color: #aaa;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.editar-msg.error {
+  color: #ff6b6b;
+}
