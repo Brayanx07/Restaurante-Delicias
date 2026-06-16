@@ -10,11 +10,9 @@ Sitio web oficial de **Restaurante Delicias** — una plataforma completa para e
 
 - Menú completo con 7 categorías y más de 56 platillos
 - Filtros interactivos por categoría
-- Formulario de reservas con confirmación por email
-- Email automático al cliente con link para modificar su reserva
 - Panel de administración para gestionar reservas
 - Diseño responsive para móvil, tablet y desktop
-
+- El sistema incluye email de confirmacion solo para el host en este caso yo, ya que resend solo permite emails de confirmacion solo al admin ya que es un plan gratiuto y este proyecto aun no se ha lanzado oficialmente pero ya esta listo
 ---
 
 ## 🛠️ Stack tecnológico
