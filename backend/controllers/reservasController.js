@@ -33,7 +33,9 @@ const crearReserva = async (req, res) => {
     )
 
     // Enviar email de confirmación (sin bloquear la respuesta)
+    console.log('Intentando enviar email a:', email)
     enviarConfirmacion({ id: result.insertId, nombre, email, fecha, hora, personas, mensaje })
+      .then(() => console.log('Email enviado exitosamente a:', email))
       .catch(err => console.error('Error al enviar email:', err))
 
     res.status(201).json({
