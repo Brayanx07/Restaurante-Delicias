@@ -2,8 +2,8 @@
 --  Restaurante Delicias — Esquema MySQL
 -- =============================================
 
-CREATE DATABASE IF NOT EXISTS restaurante_delicias;
-USE restaurante_delicias;
+-- CREATE DATABASE IF NOT EXISTS restaurante_delicias;
+-- USE restaurante_delicias;
 
 -- Categorías del menú
 CREATE TABLE IF NOT EXISTS categorias (

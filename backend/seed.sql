@@ -3,7 +3,7 @@
 --  Ejecutar: mysql -u root -p restaurante_delicias < seed.sql
 -- =============================================
 
-USE restaurante_delicias;
+-- USE restaurante_delicias;
 
 -- Limpiar datos anteriores
 DELETE FROM platillos;
