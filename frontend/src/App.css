@@ -723,12 +723,17 @@ body {
 }
 
 /* Fix iOS Safari — inputs de fecha y hora */
-input[type="date"],
-input[type="time"] {
-  color: white;
-  -webkit-text-fill-color: white;
+.contacto form {
+  color-scheme: dark;
+}
+
+.contacto form input[type="date"],
+.contacto form input[type="time"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
   color-scheme: dark;
   min-height: 48px;
+  background-color: #1a1a1a !important;
 }
 
 /* Mensajes de éxito y error del formulario */
