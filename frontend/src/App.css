@@ -986,4 +986,8 @@ body {
   .contacto form textarea {
     font-size: 14px;
   }
+
+  .form-fila {
+    flex-direction: column;
+  }
 }
