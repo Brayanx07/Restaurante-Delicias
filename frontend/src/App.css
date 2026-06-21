@@ -727,16 +727,8 @@ input[type="date"],
 input[type="time"] {
   color: white;
   -webkit-text-fill-color: white;
-  appearance: none;
-  -webkit-appearance: none;
+  color-scheme: dark;
   min-height: 48px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  opacity: 0.6;
-  cursor: pointer;
 }
 
 /* Mensajes de éxito y error del formulario */
