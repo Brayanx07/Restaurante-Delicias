@@ -124,7 +124,7 @@ body {
 
 /* ===== MENÚ ===== */
 .menu {
-  padding: 80px 8%;
+  padding: 80px 4%;
   background-color: #111;
 }
 
@@ -137,38 +137,7 @@ body {
 .menu-texto {
   font-size: 18px;
   color: #aaa;
-  margin-bottom: 50px;
-}
-
-/* ===== TABS DE CATEGORÍAS ===== */
-.categorias-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   margin-bottom: 40px;
-}
-
-.tab {
-  padding: 8px 20px;
-  border: 2px solid #333;
-  border-radius: 30px;
-  background: none;
-  color: #aaa;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.tab:hover {
-  border-color: #ffb703;
-  color: #ffb703;
-}
-
-.tab-activo {
-  background-color: #ffb703;
-  border-color: #ffb703;
-  color: #111;
-  font-weight: bold;
 }
 
 .menu-estado {
@@ -181,10 +150,234 @@ body {
   color: #ff6b6b;
 }
 
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
+/* ===== LIBRO ===== */
+.libro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.libro-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Flechas */
+.libro-flecha {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  background: #1a1a1a;
+  color: #ffb703;
+  font-size: 36px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.libro-flecha:hover:not(:disabled) {
+  background: #ffb703;
+  color: #111;
+  border-color: #ffb703;
+}
+
+.libro-flecha:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* ─── Página tipo menú impreso ─── */
+.libro-pagina {
+  flex: 1;
+  display: flex;
+  gap: 0;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 520px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* Animación flip */
+@keyframes flipDesdeRight {
+  0%   { opacity: 0; transform: perspective(1200px) rotateY(25deg) translateX(40px); }
+  100% { opacity: 1; transform: perspective(1200px) rotateY(0deg)  translateX(0); }
+}
+
+@keyframes flipDesdeLeft {
+  0%   { opacity: 0; transform: perspective(1200px) rotateY(-25deg) translateX(-40px); }
+  100% { opacity: 1; transform: perspective(1200px) rotateY(0deg)   translateX(0); }
+}
+
+.libro-pagina.flip-siguiente {
+  animation: flipDesdeRight 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.libro-pagina.flip-anterior {
+  animation: flipDesdeLeft 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Columnas */
+.pagina-col {
+  flex: 1;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pagina-divisor {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, #ffb703 20%, #ffb703 80%, transparent);
+  opacity: 0.3;
+  margin: 24px 0;
+}
+
+/* Encabezado de categoría */
+.pagina-encabezado {
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 14px;
+}
+
+.pagina-cat {
+  font-size: 30px;
+  color: #ffb703;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.pagina-slogan {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Lista de platillos */
+.platillos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.platillo-item {
+  border-bottom: 1px dashed #222;
+  padding-bottom: 10px;
+}
+
+.platillo-item:last-child {
+  border-bottom: none;
+}
+
+.platillo-linea {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.platillo-nombre {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.platillo-puntos {
+  flex: 1;
+  border-bottom: 2px dotted #333;
+  margin: 0 4px 3px;
+}
+
+.platillo-precio {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffb703;
+  white-space: nowrap;
+}
+
+.platillo-desc {
+  font-size: 12px;
+  color: #777;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Imagen destacada */
+.pagina-foto {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pagina-foto img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.pagina-foto:hover img {
+  transform: scale(1.04);
+}
+
+.pagina-foto span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  color: #ffb703;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 18px 12px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Dots */
+.libro-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.libro-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.libro-dot:hover {
+  background: #ffb703;
+}
+
+.libro-dot.dot-activo {
+  background: #ffb703;
+  transform: scale(1.4);
+}
+
+.libro-num {
+  color: #444;
+  font-size: 13px;
+  margin: 0;
 }
 
 .card {
@@ -439,18 +632,31 @@ body {
     font-size: 18px;
   }
 
-  /* Menú grid */
+  /* Menú */
   .menu {
-    padding: 60px 6%;
+    padding: 60px 3%;
   }
 
   .menu h2 {
     font-size: 32px;
   }
 
-  .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  .libro-flecha {
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+
+  .pagina-col {
+    padding: 24px 18px;
+  }
+
+  .pagina-cat {
+    font-size: 22px;
+  }
+
+  .pagina-foto img {
+    height: 140px;
   }
 
   /* Nosotros */
@@ -508,17 +714,49 @@ body {
     font-size: 15px;
   }
 
-  /* Menú — 1 columna en móvil */
+  /* Menú — móvil */
   .menu {
-    padding: 50px 5%;
+    padding: 50px 2%;
   }
 
   .menu h2 {
     font-size: 28px;
   }
 
-  .menu-grid {
-    grid-template-columns: 1fr;
+  .libro-row {
+    gap: 6px;
+  }
+
+  .libro-flecha {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  /* En móvil las columnas van verticales */
+  .libro-pagina {
+    flex-direction: column;
+    min-height: unset;
+  }
+
+  .pagina-divisor {
+    width: auto;
+    height: 1px;
+    margin: 0 24px;
+    background: linear-gradient(to right, transparent, #ffb703 20%, #ffb703 80%, transparent);
+  }
+
+  .pagina-col {
+    padding: 20px 16px;
+    gap: 14px;
+  }
+
+  .pagina-cat {
+    font-size: 20px;
+  }
+
+  .pagina-foto img {
+    height: 160px;
   }
 
   .card img {

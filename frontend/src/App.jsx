@@ -1,12 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
+
+const SLOGANS = {
+  'Entradas':       'El mejor comienzo para una gran experiencia.',
+  'Platos Fuertes': 'Sabores que llenan el alma.',
+  'Mariscos':       'Lo mejor del mar en tu mesa.',
+  'Cortes Premium': 'Para los amantes de la carne perfecta.',
+  'Postres':        'El dulce final que mereces.',
+  'Bebidas':        'Refrescantes opciones para acompañar.',
+  'Alcohol':        'Brindemos por los buenos momentos.',
+}
 
 function App() {
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [platillos, setPlatillos] = useState([])
-  const [categoriaActiva, setCategoriaActiva] = useState('Todos')
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState(null)
+  const [catIdx, setCatIdx] = useState(0)
+  const [animDir, setAnimDir] = useState('')
+  const animTimeout = useRef(null)
 
   // Estado del formulario de reservas
   const [form, setForm] = useState({
@@ -17,6 +29,13 @@ function App() {
   const [respuesta, setRespuesta] = useState(null) // { ok, mensaje }
 
   const cerrarMenu = () => setMenuAbierto(false)
+
+  const irCat = (nuevoIdx, dir) => {
+    if (animTimeout.current) clearTimeout(animTimeout.current)
+    setAnimDir(dir)
+    setCatIdx(nuevoIdx)
+    animTimeout.current = setTimeout(() => setAnimDir(''), 500)
+  }
 
   // Actualiza cualquier campo del form cuando el usuario escribe
   const handleChange = (e) => {
@@ -97,36 +116,110 @@ function App() {
         {cargando && <p className="menu-estado">Cargando menú...</p>}
         {error    && <p className="menu-estado menu-error">{error}</p>}
 
-        {!cargando && !error && (
-          <>
-            {/* Tabs de categorías */}
-            <div className="categorias-tabs">
-              {['Todos', ...new Set(platillos.map(p => p.categoria))].map(cat => (
-                <button
-                  key={cat}
-                  className={`tab ${categoriaActiva === cat ? 'tab-activo' : ''}`}
-                  onClick={() => setCategoriaActiva(cat)}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        {!cargando && !error && (() => {
+          const categorias = [...new Set(platillos.map(p => p.categoria))]
+          const catActual  = categorias[catIdx] || ''
+          const items      = platillos.filter(p => p.categoria === catActual)
+          const izq        = items.slice(0, 4)
+          const der        = items.slice(4, 8)
+          const imgIzq     = items[1]  // imagen destacada columna izquierda
+          const imgDer     = items[5]  // imagen destacada columna derecha
 
-            <div className="menu-grid">
-              {platillos
-                .filter(p => categoriaActiva === 'Todos' || p.categoria === categoriaActiva)
-                .map(p => (
-                  <div className="card" key={p.id}>
-                    <img src={p.imagen_url} alt={p.nombre} />
-                    <h3>{p.nombre}</h3>
-                    <p>{p.descripcion}</p>
-                    <span>L. {Number(p.precio).toFixed(0)}</span>
+          return (
+            <div className="libro-section">
+              {/* ── Flechas + página ── */}
+              <div className="libro-row">
+
+                <button
+                  className="libro-flecha"
+                  onClick={() => irCat(catIdx - 1, 'anterior')}
+                  disabled={catIdx === 0}
+                  aria-label="Categoría anterior"
+                >‹</button>
+
+                {/* Página tipo menú */}
+                <div
+                  className={`libro-pagina${animDir ? ` flip-${animDir}` : ''}`}
+                  key={catIdx}
+                >
+                  {/* ─ Columna izquierda ─ */}
+                  <div className="pagina-col">
+                    <div className="pagina-encabezado">
+                      <h3 className="pagina-cat">{catActual}</h3>
+                      <p className="pagina-slogan">{SLOGANS[catActual]}</p>
+                    </div>
+
+                    <div className="platillos-lista">
+                      {izq.map(p => (
+                        <div className="platillo-item" key={p.id}>
+                          <div className="platillo-linea">
+                            <span className="platillo-nombre">{p.nombre}</span>
+                            <span className="platillo-puntos" />
+                            <span className="platillo-precio">L. {Number(p.precio).toFixed(0)}</span>
+                          </div>
+                          <p className="platillo-desc">{p.descripcion}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {imgIzq && (
+                      <div className="pagina-foto">
+                        <img src={imgIzq.imagen_url} alt={imgIzq.nombre} />
+                        <span>{imgIzq.nombre}</span>
+                      </div>
+                    )}
                   </div>
-                ))
-              }
+
+                  {/* ─ Divisor ─ */}
+                  <div className="pagina-divisor" />
+
+                  {/* ─ Columna derecha ─ */}
+                  <div className="pagina-col">
+                    {imgDer && (
+                      <div className="pagina-foto">
+                        <img src={imgDer.imagen_url} alt={imgDer.nombre} />
+                        <span>{imgDer.nombre}</span>
+                      </div>
+                    )}
+
+                    <div className="platillos-lista">
+                      {der.map(p => (
+                        <div className="platillo-item" key={p.id}>
+                          <div className="platillo-linea">
+                            <span className="platillo-nombre">{p.nombre}</span>
+                            <span className="platillo-puntos" />
+                            <span className="platillo-precio">L. {Number(p.precio).toFixed(0)}</span>
+                          </div>
+                          <p className="platillo-desc">{p.descripcion}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  className="libro-flecha"
+                  onClick={() => irCat(catIdx + 1, 'siguiente')}
+                  disabled={catIdx === categorias.length - 1}
+                  aria-label="Categoría siguiente"
+                >›</button>
+              </div>
+
+              {/* ── Dots de categorías ── */}
+              <div className="libro-dots">
+                {categorias.map((cat, i) => (
+                  <button
+                    key={cat}
+                    className={`libro-dot ${i === catIdx ? 'dot-activo' : ''}`}
+                    onClick={() => irCat(i, i > catIdx ? 'siguiente' : 'anterior')}
+                    title={cat}
+                  />
+                ))}
+              </div>
+              <p className="libro-num">{catActual} &mdash; {catIdx + 1} / {categorias.length}</p>
             </div>
-          </>
-        )}
+          )
+        })()}
       </section>
 
       <section className="nosotros" id="nosotros">
